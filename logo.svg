@@ -1,51 +1,45 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-label="808 All Purpose Cleaners">
   <defs>
-    <!-- 3D gradient for 808 - matches the logo's black gloss look -->
-    <linearGradient id="grad808" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="1"/>
-      <stop offset="18%"  stop-color="#888888" stop-opacity="1"/>
-      <stop offset="45%"  stop-color="#111111" stop-opacity="1"/>
-      <stop offset="70%"  stop-color="#000000" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#333333" stop-opacity="1"/>
+    <!-- Gold 3D gradient for 808 -->
+    <linearGradient id="grad808gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#FFF5CC"  stop-opacity="1"/>
+      <stop offset="15%"  stop-color="#F5C842"  stop-opacity="1"/>
+      <stop offset="45%"  stop-color="#E8A020"  stop-opacity="1"/>
+      <stop offset="75%"  stop-color="#B87800"  stop-opacity="1"/>
+      <stop offset="100%" stop-color="#D4A030"  stop-opacity="1"/>
     </linearGradient>
     <!-- Highlight overlay -->
     <linearGradient id="highlight808" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.25"/>
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.30"/>
       <stop offset="40%"  stop-color="#FFFFFF" stop-opacity="0.05"/>
       <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
     </linearGradient>
-    <!-- Gold variant for colored version -->
-    <linearGradient id="grad808gold" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%"   stop-color="#FFFFFF"  stop-opacity="1"/>
-      <stop offset="15%"  stop-color="#FFE066"  stop-opacity="1"/>
-      <stop offset="45%"  stop-color="#D4A000"  stop-opacity="1"/>
-      <stop offset="75%"  stop-color="#A07800"  stop-opacity="1"/>
-      <stop offset="100%" stop-color="#C8A800"  stop-opacity="1"/>
-    </linearGradient>
     <filter id="shadow808" x="-5%" y="-5%" width="110%" height="120%">
-      <feDropShadow dx="3" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+      <feDropShadow dx="3" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.45"/>
     </filter>
     <filter id="textShadow" x="-3%" y="-5%" width="106%" height="130%">
-      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.4"/>
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.35"/>
     </filter>
   </defs>
 
   <!-- Decorative arced lines left -->
-  <path d="M 30 145 Q 200 100 350 148" stroke="#222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <path d="M 28 155 Q 200 108 348 158" stroke="#888" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+  <path d="M 30 145 Q 200 100 350 148" stroke="#1E3A8A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M 28 155 Q 200 108 348 158" stroke="#4A6AB8" stroke-width="0.8" fill="none" stroke-linecap="round"/>
 
   <!-- Decorative arced lines right -->
-  <path d="M 610 148 Q 760 100 930 145" stroke="#222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <path d="M 612 158 Q 762 108 932 155" stroke="#888" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+  <path d="M 610 148 Q 760 100 930 145" stroke="#1E3A8A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M 612 158 Q 762 108 932 155" stroke="#4A6AB8" stroke-width="0.8" fill="none" stroke-linecap="round"/>
 
-  <!-- 808 main text - filled with gradient -->
+  <!-- 808 main text - gold gradient with blue stroke -->
   <text
     x="480" y="178"
     font-family="'Arial Black', 'Impact', sans-serif"
     font-weight="900"
     font-size="195"
     text-anchor="middle"
-    fill="url(#grad808)"
+    fill="url(#grad808gold)"
+    stroke="#1E3A8A"
+    stroke-width="2"
     filter="url(#shadow808)"
     letter-spacing="-4"
   >808</text>
@@ -62,8 +56,8 @@
   >808</text>
 
   <!-- Divider line below 808 -->
-  <line x1="60" y1="200" x2="900" y2="200" stroke="#111" stroke-width="2.5"/>
-  <line x1="60" y1="205" x2="900" y2="205" stroke="#aaa" stroke-width="0.6"/>
+  <line x1="60" y1="200" x2="900" y2="200" stroke="#1E3A8A" stroke-width="2.5"/>
+  <line x1="60" y1="205" x2="900" y2="205" stroke="#4A6AB8" stroke-width="0.6"/>
 
   <!-- ALL PURPOSE CLEANERS -->
   <text
@@ -72,14 +66,14 @@
     font-weight="900"
     font-size="78"
     text-anchor="middle"
-    fill="#000000"
+    fill="#1E3A8A"
     filter="url(#textShadow)"
     letter-spacing="3"
   >ALL PURPOSE CLEANERS</text>
 
   <!-- Divider line below company name -->
-  <line x1="60" y1="303" x2="900" y2="303" stroke="#111" stroke-width="2"/>
-  <line x1="60" y1="307" x2="900" y2="307" stroke="#aaa" stroke-width="0.5"/>
+  <line x1="60" y1="303" x2="900" y2="303" stroke="#1E3A8A" stroke-width="2"/>
+  <line x1="60" y1="307" x2="900" y2="307" stroke="#4A6AB8" stroke-width="0.5"/>
 
   <!-- Professional Cleaning Services italic -->
   <text
@@ -89,7 +83,7 @@
     font-weight="400"
     font-size="52"
     text-anchor="middle"
-    fill="#111111"
+    fill="#1E3A8A"
     letter-spacing="1"
   >Professional Cleaning Services</text>
 </svg>
