@@ -159,8 +159,7 @@
       <form
         class="contact-form reveal-up"
         data-delay="150"
-        action="https://formspree.io/f/YOUR_FORM_ID"
-        method="POST"
+        id="contact-form"
       >
         <div class="form-row">
           <div class="form-group">
@@ -193,11 +192,12 @@
           <label for="cf-message">Additional Details</label>
           <textarea id="cf-message" name="message" rows="4" placeholder="Tell us about your vehicle, property size, or any special requests…"></textarea>
         </div>
-        <button type="submit" class="form-submit">
+        <button type="submit" class="form-submit" id="cf-submit-btn">
           <span>Send Message</span>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
         </button>
         <p class="form-note">* Required fields. We typically respond within a few hours.</p>
+        <div id="cf-status" style="margin-top:1rem;text-align:center;font-weight:600;display:none;"></div>
       </form>
 
     </div>
@@ -336,5 +336,53 @@
   </footer>
 
   <script src="app.js"></script>
+  <script>
+  (function() {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+    const btn = document.getElementById('cf-submit-btn');
+    const status = document.getElementById('cf-status');
+    const API = 'https://allpurposecleaners.gorjess.co/api/contact';
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.querySelector('span').textContent = 'Sending…';
+      status.style.display = 'none';
+
+      const data = {
+        name: form.querySelector('[name="name"]').value.trim(),
+        phone: form.querySelector('[name="phone"]').value.trim(),
+        email: form.querySelector('[name="email"]').value.trim() || null,
+        service: form.querySelector('[name="service"]').value,
+        message: form.querySelector('[name="message"]').value.trim() || null
+      };
+
+      try {
+        const res = await fetch(API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        if (res.ok) {
+          status.style.display = 'block';
+          status.style.color = '#16a34a';
+          status.textContent = '✅ ' + (json.message || 'Message sent! We\'ll be in touch soon.');
+          form.reset();
+        } else {
+          throw new Error(json.error || 'Something went wrong');
+        }
+      } catch (err) {
+        status.style.display = 'block';
+        status.style.color = '#dc2626';
+        status.textContent = '❌ ' + (err.message || 'Failed to send. Please call us at 808-723-1011.');
+      } finally {
+        btn.disabled = false;
+        btn.querySelector('span').textContent = 'Send Message';
+      }
+    });
+  })();
+  </script>
 </body>
 </html>
