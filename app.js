@@ -235,6 +235,17 @@
   for (let i = 0; i < 20; i++) createBubble();
 })();
 
+/* ── ACTIVE NAV LINK ──────────────────────────────────────────── */
+(function initActiveNav() {
+  const page = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && href.split('#')[0] === page) {
+      link.classList.add('nav-active');
+    }
+  });
+})();
+
 /* ── NAVBAR SCROLL BEHAVIOR ───────────────────────────────────── */
 (function initNavbar() {
   const navbar = document.getElementById('navbar');

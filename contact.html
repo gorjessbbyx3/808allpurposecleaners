@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact – 808 All Purpose Cleaners</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700;900&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <canvas id="particleCanvas"></canvas>
+  <div id="cursorSparkle"></div>
+
+  <!-- ═══════════════════════════════════════════ NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="808 All Purpose Cleaners home">
+        <img src="Untitled-3.png" alt="808 All Purpose Cleaners" class="nav-logo-img" width="160" height="68" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="about.html#process">Process</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="tel:8087231011" class="nav-cta">
+        <span class="pulse-ring"></span>
+        📞 Call Now
+      </a>
+      <button class="burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="about.html#process">Process</a>
+      <a href="contact.html">Contact</a>
+      <a href="tel:8087231011" class="mobile-cta">📞 808-723-1011</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════ PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-aurora">
+      <div class="aurora a1"></div>
+      <div class="aurora a3"></div>
+    </div>
+    <span class="section-tag reveal-up">Get In Touch</span>
+    <h1 class="page-header-title reveal-up" data-delay="100">
+      Contact <span class="gradient-word">Us</span>
+    </h1>
+    <p class="page-header-sub reveal-up" data-delay="200">
+      Ready for a sparkling clean? Give us a call for your free estimate
+    </p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="section-header">
+      <span class="section-tag reveal-up">Reviews</span>
+      <h2 class="section-title reveal-up" data-delay="100">
+        What Clients <span class="gradient-word">Say</span>
+      </h2>
+    </div>
+
+    <div class="testimonials-track" id="testimonialsTrack">
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p>"They made my boat look brand new! The hull was spotless and they even got rid of all the salt damage. Best in Hawaii!"</p>
+        <div class="tcard-author">
+          <div class="tcard-avatar">K</div>
+          <div>
+            <strong>Kalani M.</strong>
+            <small>Boat Owner, Honolulu</small>
+          </div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p>"My condo was an absolute mess after my tenants left. 808 Cleaners came in and it looks better than when I bought it!"</p>
+        <div class="tcard-author">
+          <div class="tcard-avatar">S</div>
+          <div>
+            <strong>Sarah L.</strong>
+            <small>Property Owner, Kaimuki</small>
+          </div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p>"Got my car detailed before selling it. Got $2,000 more than expected! The interior looked showroom fresh. Worth every penny!"</p>
+        <div class="tcard-author">
+          <div class="tcard-avatar">M</div>
+          <div>
+            <strong>Mike T.</strong>
+            <small>Car Owner, Pearl City</small>
+          </div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p>"Professional, on time, and incredibly thorough. My vacation rental has never looked this good. Repeat customer for sure!"</p>
+        <div class="tcard-author">
+          <div class="tcard-avatar">A</div>
+          <div>
+            <strong>Alicia N.</strong>
+            <small>Airbnb Host, Ewa Beach</small>
+          </div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-stars">★★★★★</div>
+        <p>"The Aloha spirit is real with these guys. Super friendly, super professional. My boat's teak looks incredible!"</p>
+        <div class="tcard-author">
+          <div class="tcard-avatar">J</div>
+          <div>
+            <strong>James K.</strong>
+            <small>Marina Owner, Ke'ehi</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonials-dots" id="testimonialsDots"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ CTA -->
+  <section id="contact">
+    <div class="cta-blob"></div>
+    <div class="cta-content">
+      <div class="cta-sparkle-ring">
+        <span class="csp" style="--i:0">✦</span>
+        <span class="csp" style="--i:1">✦</span>
+        <span class="csp" style="--i:2">✦</span>
+        <span class="csp" style="--i:3">✦</span>
+        <span class="csp" style="--i:4">✦</span>
+        <span class="csp" style="--i:5">✦</span>
+        <span class="csp" style="--i:6">✦</span>
+        <span class="csp" style="--i:7">✦</span>
+      </div>
+      <span class="section-tag reveal-up">Ready to Shine?</span>
+      <h2 class="cta-title reveal-up" data-delay="100">Call Today for a<br><span class="gradient-word-gold">FREE Estimate!</span></h2>
+      <p class="cta-sub reveal-up" data-delay="200">No commitment. No pressure. Just a friendly conversation about getting your car, boat, or home sparkling clean.</p>
+      <a href="tel:8087231011" class="mega-btn reveal-up" data-delay="300">
+        <span class="mega-btn-inner">
+          <span class="mega-phone">📞</span>
+          <span>
+            <span class="mega-number">808-723-1011</span>
+            <span class="mega-sub">Tap to Call · Free Estimate</span>
+          </span>
+        </span>
+        <span class="mega-btn-glow"></span>
+      </a>
+      <div class="cta-chips reveal-up" data-delay="400">
+        <span>🚗 Auto Detailing</span>
+        <span>🛥️ Marine Detailing</span>
+        <span>🏢 Residential Cleaning</span>
+        <span>🏝️ South Oahu</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="Untitled-3.png" alt="808 All Purpose Cleaners" class="footer-logo-img" width="220" height="92" />
+        <p>Professional cleaning services for cars, boats, and condos throughout South Oahu, Hawaii.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="services.html">Services</a>
+        <a href="about.html">About Us</a>
+        <a href="about.html#process">Process</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Us</h4>
+        <a href="tel:8087231011" class="footer-phone">📞 808-723-1011</a>
+        <p>📍 Serving South Oahu</p>
+        <p>🕐 By Appointment Only</p>
+        <div class="footer-stars">★★★★★ 5-Star Rated</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 808 All Purpose Cleaners · All Rights Reserved · South Oahu, Hawaii</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services – 808 All Purpose Cleaners</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700;900&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <canvas id="particleCanvas"></canvas>
+  <div id="cursorSparkle"></div>
+
+  <!-- ═══════════════════════════════════════════ NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="808 All Purpose Cleaners home">
+        <img src="Untitled-3.png" alt="808 All Purpose Cleaners" class="nav-logo-img" width="160" height="68" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="about.html#process">Process</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="tel:8087231011" class="nav-cta">
+        <span class="pulse-ring"></span>
+        📞 Call Now
+      </a>
+      <button class="burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="about.html#process">Process</a>
+      <a href="contact.html">Contact</a>
+      <a href="tel:8087231011" class="mobile-cta">📞 808-723-1011</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════ PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-aurora">
+      <div class="aurora a1"></div>
+      <div class="aurora a3"></div>
+    </div>
+    <span class="section-tag reveal-up">What We Clean</span>
+    <h1 class="page-header-title reveal-up" data-delay="100">
+      Our <span class="gradient-word">Services</span>
+    </h1>
+    <p class="page-header-sub reveal-up" data-delay="200">
+      Professional grade cleaning for every corner of your life in Hawaii
+    </p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ SERVICES -->
+  <section id="services">
+    <div class="services-grid">
+
+      <div class="service-card reveal-up" data-delay="0">
+        <div class="card-glow glow-blue"></div>
+        <div class="card-icon-wrap">
+          <div class="card-icon-bg"></div>
+          <span class="card-icon">🚗</span>
+          <div class="icon-sparkles">
+            <span class="sp sp1">✦</span>
+            <span class="sp sp2">✦</span>
+            <span class="sp sp3">✦</span>
+          </div>
+        </div>
+        <h3>Auto Detailing</h3>
+        <p>Interior &amp; exterior deep cleaning. We restore your vehicle to showroom condition with our premium detailing packages.</p>
+        <ul class="service-list">
+          <li>Full Interior Detail</li>
+          <li>Exterior Hand Wash &amp; Wax</li>
+          <li>Engine Bay Cleaning</li>
+          <li>Paint Correction</li>
+        </ul>
+        <div class="card-footer">
+          <a href="tel:8087231011" class="card-btn">Get Quote →</a>
+        </div>
+      </div>
+
+      <div class="service-card service-card--featured reveal-up" data-delay="150">
+        <div class="card-glow glow-yellow"></div>
+        <div class="featured-badge">Most Popular</div>
+        <div class="card-icon-wrap">
+          <div class="card-icon-bg"></div>
+          <span class="card-icon">🛥️</span>
+          <div class="icon-sparkles">
+            <span class="sp sp1">✦</span>
+            <span class="sp sp2">✦</span>
+            <span class="sp sp3">✦</span>
+          </div>
+        </div>
+        <h3>Boat Detailing</h3>
+        <p>Specialized marine cleaning that handles salt, barnacles, algae &amp; UV damage. Your vessel deserves the best Hawaii care.</p>
+        <ul class="service-list">
+          <li>Hull Scrub &amp; Polish</li>
+          <li>Teak Restoration</li>
+          <li>Upholstery Cleaning</li>
+          <li>Anti-Fouling Treatment</li>
+        </ul>
+        <div class="card-footer">
+          <a href="tel:8087231011" class="card-btn card-btn--primary">Get Quote →</a>
+        </div>
+      </div>
+
+      <div class="service-card reveal-up" data-delay="300">
+        <div class="card-glow glow-cyan"></div>
+        <div class="card-icon-wrap">
+          <div class="card-icon-bg"></div>
+          <span class="card-icon">🏢</span>
+          <div class="icon-sparkles">
+            <span class="sp sp1">✦</span>
+            <span class="sp sp2">✦</span>
+            <span class="sp sp3">✦</span>
+          </div>
+        </div>
+        <h3>Condo &amp; Home</h3>
+        <p>Deep cleaning services for condos, homes &amp; vacation rentals. Move-in/move-out ready, every time.</p>
+        <ul class="service-list">
+          <li>Move-In / Move-Out</li>
+          <li>Deep Clean Sessions</li>
+          <li>Vacation Rental Turnover</li>
+          <li>Post-Construction Clean</li>
+        </ul>
+        <div class="card-footer">
+          <a href="tel:8087231011" class="card-btn">Get Quote →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ STATS BANNER -->
+  <div class="stats-banner">
+    <div class="stat-item reveal-up">
+      <span class="stat-num" data-target="500">0</span><span class="stat-plus">+</span>
+      <span class="stat-label">Happy Clients</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item reveal-up" data-delay="100">
+      <span class="stat-num" data-target="10">0</span><span class="stat-plus">+</span>
+      <span class="stat-label">Years Experience</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item reveal-up" data-delay="200">
+      <span class="stat-num" data-target="100">0</span><span class="stat-plus">%</span>
+      <span class="stat-label">Satisfaction Rate</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item reveal-up" data-delay="300">
+      <span class="stat-num" data-target="5">0</span><span class="stat-plus">★</span>
+      <span class="stat-label">Star Rating</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ CTA -->
+  <section id="contact">
+    <div class="cta-blob"></div>
+    <div class="cta-content">
+      <span class="section-tag reveal-up">Ready to Book?</span>
+      <h2 class="cta-title reveal-up" data-delay="100">Call for a <span class="gradient-word-gold">FREE Estimate!</span></h2>
+      <p class="cta-sub reveal-up" data-delay="200">No commitment. No pressure. Just a friendly conversation about getting things sparkling clean.</p>
+      <a href="tel:8087231011" class="mega-btn reveal-up" data-delay="300">
+        <span class="mega-btn-inner">
+          <span class="mega-phone">📞</span>
+          <span>
+            <span class="mega-number">808-723-1011</span>
+            <span class="mega-sub">Tap to Call · Free Estimate</span>
+          </span>
+        </span>
+        <span class="mega-btn-glow"></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="Untitled-3.png" alt="808 All Purpose Cleaners" class="footer-logo-img" width="220" height="92" />
+        <p>Professional cleaning services for cars, boats, and condos throughout South Oahu, Hawaii.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="services.html">Services</a>
+        <a href="about.html">About Us</a>
+        <a href="about.html#process">Process</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Us</h4>
+        <a href="tel:8087231011" class="footer-phone">📞 808-723-1011</a>
+        <p>📍 Serving South Oahu</p>
+        <p>🕐 By Appointment Only</p>
+        <div class="footer-stars">★★★★★ 5-Star Rated</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 808 All Purpose Cleaners · All Rights Reserved · South Oahu, Hawaii</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

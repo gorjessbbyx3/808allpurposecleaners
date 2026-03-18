@@ -251,6 +251,52 @@ body::before {
   border: none;
 }
 
+/* ── PAGE HEADER (interior pages) ────────────────────────────── */
+.page-header {
+  position: relative;
+  padding: calc(70px + clamp(3rem, 6vw, 5rem)) clamp(1rem, 5vw, 3rem) clamp(3rem, 5vw, 4rem);
+  text-align: center;
+  overflow: hidden;
+  background: var(--dark);
+}
+
+.page-header-aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.page-header-aurora .aurora {
+  opacity: 0.3;
+}
+
+.page-header-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  margin: 0.75rem 0 0.5rem;
+}
+
+.page-header-sub {
+  color: rgba(255,255,255,0.6);
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* Active nav link */
+.nav-links a.nav-active {
+  color: var(--yellow);
+}
+
+.nav-links a.nav-active::after {
+  right: 0;
+  background: var(--yellow);
+}
+
 /* ── HERO ─────────────────────────────────────────────────────── */
 #hero {
   position: relative;
