@@ -524,65 +524,248 @@
 
 /* ── PAGE LOAD ANIMATION ──────────────────────────────────────── */
 (function initPageLoad() {
-  const loader = document.createElement('div');
-  loader.style.cssText = `
-    position: fixed; inset: 0; z-index: 99999;
-    background: #080C1A;
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 1rem;
-    font-family: 'Bebas Neue', sans-serif;
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  `;
-
-  const text = document.createElement('div');
-  text.style.cssText = `
-    font-size: 4rem; color: #FFD700;
-    text-shadow: 0 0 30px rgba(255,215,0,0.6);
-    letter-spacing: 0.1em;
-    animation: loaderPulse 0.8s ease-in-out infinite alternate;
-  `;
-  text.textContent = '808';
-
-  const sub = document.createElement('div');
-  sub.style.cssText = `font-size: 1rem; color: rgba(0,229,255,0.8); letter-spacing: 0.3em;`;
-  sub.textContent = 'ALL PURPOSE CLEANERS';
-
-  const bar = document.createElement('div');
-  bar.style.cssText = `
-    width: 200px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;
-    margin-top: 1rem;
-  `;
-  const barFill = document.createElement('div');
-  barFill.style.cssText = `
-    height: 100%; width: 0%; background: linear-gradient(90deg, #FFD700, #00E5FF);
-    border-radius: 2px; transition: width 0.8s ease;
-  `;
-  bar.appendChild(barFill);
-
-  loader.appendChild(text);
-  loader.appendChild(sub);
-  loader.appendChild(bar);
-  document.body.appendChild(loader);
-
-  // Add keyframe for loader
+  /* ---- inject keyframes ---- */
   const style = document.createElement('style');
   style.textContent = `
-    @keyframes loaderPulse {
-      0%   { text-shadow: 0 0 20px rgba(255,215,0,0.6); }
-      100% { text-shadow: 0 0 40px rgba(255,215,0,1), 0 0 80px rgba(255,165,0,0.5); }
+    @keyframes loaderBubbleRise {
+      0%   { transform: translateY(0) scale(1);   opacity: 0.7; }
+      80%  { opacity: 0.5; }
+      100% { transform: translateY(-110vh) scale(1.4); opacity: 0; }
+    }
+    @keyframes loaderLogoBurst {
+      0%   { transform: scale(0.3); opacity: 0; filter: blur(20px) brightness(3); }
+      60%  { transform: scale(1.08); opacity: 1; filter: blur(0) brightness(1.15); }
+      80%  { transform: scale(0.97); }
+      100% { transform: scale(1);   opacity: 1; filter: blur(0) brightness(1); }
+    }
+    @keyframes loaderGlowPulse {
+      0%, 100% { box-shadow: 0 0 60px 20px rgba(255,215,0,0.25), 0 0 120px 40px rgba(0,71,171,0.15); }
+      50%       { box-shadow: 0 0 80px 30px rgba(255,215,0,0.45), 0 0 160px 60px rgba(0,71,171,0.25); }
+    }
+    @keyframes loaderSpark {
+      0%   { transform: translate(0,0) scale(1); opacity: 1; }
+      100% { transform: translate(var(--sx), var(--sy)) scale(0); opacity: 0; }
+    }
+    @keyframes loaderBarShine {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes loaderTagline {
+      0%   { opacity: 0; letter-spacing: 0.6em; }
+      100% { opacity: 1; letter-spacing: 0.25em; }
+    }
+    @keyframes loaderWipePanelLeft {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+    @keyframes loaderWipePanelRight {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(100%); }
+    }
+    @keyframes loaderRipple {
+      0%   { transform: translate(-50%,-50%) scale(0); opacity: 0.6; }
+      100% { transform: translate(-50%,-50%) scale(6); opacity: 0; }
     }
   `;
   document.head.appendChild(style);
 
+  /* ---- wrapper ---- */
+  const loader = document.createElement('div');
+  loader.id = 'siteLoader';
+  loader.style.cssText = `
+    position: fixed; inset: 0; z-index: 99999;
+    background: #080C1A;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Bebas Neue', 'Space Grotesk', sans-serif;
+  `;
+
+  /* ---- bubble canvas ---- */
+  const bCanvas = document.createElement('canvas');
+  bCanvas.style.cssText = `position:absolute;inset:0;pointer-events:none;z-index:0;`;
+  loader.appendChild(bCanvas);
+
+  function resizeBCanvas() {
+    bCanvas.width  = loader.offsetWidth  || window.innerWidth;
+    bCanvas.height = loader.offsetHeight || window.innerHeight;
+  }
+  resizeBCanvas();
+
+  const bCtx = bCanvas.getContext('2d');
+  const bubbles = Array.from({ length: 38 }, () => ({
+    x: Math.random() * (bCanvas.width),
+    y: bCanvas.height + Math.random() * 200,
+    r: 4 + Math.random() * 18,
+    speed: 0.6 + Math.random() * 1.4,
+    wobble: Math.random() * Math.PI * 2,
+    wobbleSpeed: 0.02 + Math.random() * 0.04,
+    alpha: 0.15 + Math.random() * 0.35,
+  }));
+  let bubbleRAF;
+  function animateBubbles() {
+    bCtx.clearRect(0, 0, bCanvas.width, bCanvas.height);
+    bubbles.forEach(b => {
+      b.y -= b.speed;
+      b.wobble += b.wobbleSpeed;
+      const x = b.x + Math.sin(b.wobble) * 12;
+      if (b.y + b.r < 0) { b.y = bCanvas.height + b.r; b.x = Math.random() * bCanvas.width; }
+      bCtx.beginPath();
+      bCtx.arc(x, b.y, b.r, 0, Math.PI * 2);
+      const g = bCtx.createRadialGradient(x - b.r*0.3, b.y - b.r*0.3, b.r*0.1, x, b.y, b.r);
+      g.addColorStop(0, `rgba(255,255,255,${b.alpha * 1.4})`);
+      g.addColorStop(0.5, `rgba(0,229,255,${b.alpha})`);
+      g.addColorStop(1, `rgba(0,71,171,${b.alpha * 0.3})`);
+      bCtx.fillStyle = g;
+      bCtx.fill();
+      bCtx.beginPath();
+      bCtx.arc(x, b.y, b.r, 0, Math.PI * 2);
+      bCtx.strokeStyle = `rgba(255,255,255,${b.alpha * 0.6})`;
+      bCtx.lineWidth = 0.8;
+      bCtx.stroke();
+    });
+    bubbleRAF = requestAnimationFrame(animateBubbles);
+  }
+  animateBubbles();
+
+  /* ---- ripple ring ---- */
+  const ripple = document.createElement('div');
+  ripple.style.cssText = `
+    position:absolute; left:50%; top:50%;
+    width:300px; height:300px; border-radius:50%;
+    border: 2px solid rgba(255,215,0,0.5);
+    transform: translate(-50%,-50%) scale(0);
+    z-index:1; pointer-events:none;
+  `;
+  loader.appendChild(ripple);
+
+  /* ---- center content ---- */
+  const center = document.createElement('div');
+  center.style.cssText = `
+    position:relative; z-index:2;
+    display:flex; flex-direction:column; align-items:center; gap:1.8rem;
+  `;
+
+  /* logo */
+  const logoWrap = document.createElement('div');
+  logoWrap.style.cssText = `
+    position:relative;
+    animation: loaderLogoBurst 0.9s cubic-bezier(0.34,1.56,0.64,1) 0.2s both,
+               loaderGlowPulse 2s ease-in-out 1.1s infinite;
+    border-radius: 12px;
+  `;
+  const logoImg = document.createElement('img');
+  logoImg.src = 'Untitled-3.png';
+  logoImg.alt = '808 All Purpose Cleaners';
+  logoImg.style.cssText = `
+    width: clamp(260px, 45vw, 480px);
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 30px rgba(255,215,0,0.5)) drop-shadow(0 0 60px rgba(0,71,171,0.4));
+  `;
+  logoWrap.appendChild(logoImg);
+
+  /* spark particles that erupt around logo */
+  const sparkColors = ['#FFD700','#FFA500','#00E5FF','#ffffff','#FFD700'];
+  for (let i = 0; i < 16; i++) {
+    const sp = document.createElement('div');
+    const angle = (i / 16) * Math.PI * 2;
+    const dist  = 80 + Math.random() * 120;
+    sp.style.cssText = `
+      position:absolute; width:6px; height:6px; border-radius:50%;
+      background:${sparkColors[i % sparkColors.length]};
+      top:50%; left:50%;
+      --sx: ${Math.cos(angle) * dist}px;
+      --sy: ${Math.sin(angle) * dist}px;
+      animation: loaderSpark 0.7s ease-out ${0.9 + Math.random() * 0.3}s both;
+      box-shadow: 0 0 6px currentColor;
+    `;
+    logoWrap.appendChild(sp);
+  }
+
+  /* tagline */
+  const tagline = document.createElement('div');
+  tagline.style.cssText = `
+    font-size: clamp(0.7rem, 2vw, 1rem);
+    color: rgba(0,229,255,0.9);
+    letter-spacing: 0.25em;
+    animation: loaderTagline 0.6s ease-out 1.1s both;
+    text-align: center;
+  `;
+  tagline.textContent = 'ALL PURPOSE CLEANERS';
+
+  /* progress bar */
+  const barWrap = document.createElement('div');
+  barWrap.style.cssText = `
+    width: clamp(200px, 35vw, 360px); height: 4px;
+    background: rgba(255,255,255,0.08); border-radius: 4px; overflow:hidden;
+    position:relative;
+  `;
+  const barFill = document.createElement('div');
+  barFill.style.cssText = `
+    height:100%; width:0%;
+    background: linear-gradient(90deg, #0047AB, #FFD700, #00E5FF, #FFD700, #0047AB);
+    background-size: 200% 100%;
+    border-radius:4px;
+    transition: width 1.6s cubic-bezier(0.4,0,0.2,1);
+    animation: loaderBarShine 1.8s linear 0.4s infinite;
+  `;
+  barWrap.appendChild(barFill);
+
+  /* "cleaning..." hint */
+  const hint = document.createElement('div');
+  hint.style.cssText = `
+    font-size: 0.72rem; color: rgba(255,255,255,0.3); letter-spacing:0.15em;
+    font-family:'Space Grotesk',sans-serif; font-weight:300;
+  `;
+  const hints = ['LOADING…', 'SCRUBBING…', 'POLISHING…', 'MAKING IT SHINE…'];
+  let hi = 0;
+  hint.textContent = hints[0];
+  const hintInterval = setInterval(() => { hint.textContent = hints[++hi % hints.length]; }, 380);
+
+  center.appendChild(logoWrap);
+  center.appendChild(tagline);
+  center.appendChild(barWrap);
+  center.appendChild(hint);
+  loader.appendChild(ripple);
+  loader.appendChild(center);
+  document.body.appendChild(loader);
+
+  /* ---- trigger progress & ripple ---- */
   requestAnimationFrame(() => {
     barFill.style.width = '100%';
+    setTimeout(() => {
+      ripple.style.animation = 'loaderRipple 1.0s ease-out forwards';
+    }, 300);
   });
 
+  /* ---- squeegee wipe exit ---- */
   setTimeout(() => {
-    loader.style.opacity = '0';
-    loader.style.transform = 'scale(1.05)';
-    setTimeout(() => loader.remove(), 600);
-  }, 1200);
+    clearInterval(hintInterval);
+    cancelAnimationFrame(bubbleRAF);
+
+    /* build two wipe panels */
+    const panelL = document.createElement('div');
+    const panelR = document.createElement('div');
+    [panelL, panelR].forEach(p => {
+      p.style.cssText = `
+        position:absolute; top:0; width:50%; height:100%; z-index:10;
+        background: #080C1A;
+      `;
+    });
+    panelL.style.left  = '0';
+    panelR.style.right = '0';
+    loader.appendChild(panelL);
+    loader.appendChild(panelR);
+
+    /* hide center under panels then wipe */
+    setTimeout(() => {
+      center.style.opacity = '0';
+      panelL.style.cssText += `animation: loaderWipePanelLeft  0.65s cubic-bezier(0.76,0,0.24,1) forwards;`;
+      panelR.style.cssText += `animation: loaderWipePanelRight 0.65s cubic-bezier(0.76,0,0.24,1) forwards;`;
+      setTimeout(() => loader.remove(), 700);
+    }, 80);
+  }, 2200);
 })();
 
 /* ── DYNAMIC SPARKLE FIELD ON HERO HOVER ─────────────────────── */
