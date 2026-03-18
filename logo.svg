@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-label="808 All Purpose Cleaners">
+  <defs>
+    <!-- 3D gradient for 808 - matches the logo's black gloss look -->
+    <linearGradient id="grad808" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="1"/>
+      <stop offset="18%"  stop-color="#888888" stop-opacity="1"/>
+      <stop offset="45%"  stop-color="#111111" stop-opacity="1"/>
+      <stop offset="70%"  stop-color="#000000" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#333333" stop-opacity="1"/>
+    </linearGradient>
+    <!-- Highlight overlay -->
+    <linearGradient id="highlight808" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.25"/>
+      <stop offset="40%"  stop-color="#FFFFFF" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Gold variant for colored version -->
+    <linearGradient id="grad808gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#FFFFFF"  stop-opacity="1"/>
+      <stop offset="15%"  stop-color="#FFE066"  stop-opacity="1"/>
+      <stop offset="45%"  stop-color="#D4A000"  stop-opacity="1"/>
+      <stop offset="75%"  stop-color="#A07800"  stop-opacity="1"/>
+      <stop offset="100%" stop-color="#C8A800"  stop-opacity="1"/>
+    </linearGradient>
+    <filter id="shadow808" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="3" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="textShadow" x="-3%" y="-5%" width="106%" height="130%">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Decorative arced lines left -->
+  <path d="M 30 145 Q 200 100 350 148" stroke="#222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M 28 155 Q 200 108 348 158" stroke="#888" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+
+  <!-- Decorative arced lines right -->
+  <path d="M 610 148 Q 760 100 930 145" stroke="#222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M 612 158 Q 762 108 932 155" stroke="#888" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+
+  <!-- 808 main text - filled with gradient -->
+  <text
+    x="480" y="178"
+    font-family="'Arial Black', 'Impact', sans-serif"
+    font-weight="900"
+    font-size="195"
+    text-anchor="middle"
+    fill="url(#grad808)"
+    filter="url(#shadow808)"
+    letter-spacing="-4"
+  >808</text>
+
+  <!-- 808 highlight overlay -->
+  <text
+    x="480" y="178"
+    font-family="'Arial Black', 'Impact', sans-serif"
+    font-weight="900"
+    font-size="195"
+    text-anchor="middle"
+    fill="url(#highlight808)"
+    letter-spacing="-4"
+  >808</text>
+
+  <!-- Divider line below 808 -->
+  <line x1="60" y1="200" x2="900" y2="200" stroke="#111" stroke-width="2.5"/>
+  <line x1="60" y1="205" x2="900" y2="205" stroke="#aaa" stroke-width="0.6"/>
+
+  <!-- ALL PURPOSE CLEANERS -->
+  <text
+    x="480" y="285"
+    font-family="'Arial Black', 'Franklin Gothic Heavy', 'Impact', sans-serif"
+    font-weight="900"
+    font-size="78"
+    text-anchor="middle"
+    fill="#000000"
+    filter="url(#textShadow)"
+    letter-spacing="3"
+  >ALL PURPOSE CLEANERS</text>
+
+  <!-- Divider line below company name -->
+  <line x1="60" y1="303" x2="900" y2="303" stroke="#111" stroke-width="2"/>
+  <line x1="60" y1="307" x2="900" y2="307" stroke="#aaa" stroke-width="0.5"/>
+
+  <!-- Professional Cleaning Services italic -->
+  <text
+    x="480" y="375"
+    font-family="'Palatino Linotype', 'Georgia', serif"
+    font-style="italic"
+    font-weight="400"
+    font-size="52"
+    text-anchor="middle"
+    fill="#111111"
+    letter-spacing="1"
+  >Professional Cleaning Services</text>
+</svg>
