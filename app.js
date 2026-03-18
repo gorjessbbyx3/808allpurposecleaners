@@ -325,14 +325,27 @@
   const cards = track.querySelectorAll('.tcard');
   const count = cards.length;
   let currentDot = 0;
+  let autoPlay = null;
 
-  // Scroll only within the horizontal track — never touches page scroll
+  // Use offsetLeft (layout position) so the calculation is correct
+  // regardless of where the page is scrolled — avoids triggering page scroll
   function scrollToCard(idx) {
     const card = cards[idx];
-    const trackRect = track.getBoundingClientRect();
-    const cardRect = card.getBoundingClientRect();
-    const offset = cardRect.left - trackRect.left + track.scrollLeft - (trackRect.width - cardRect.width) / 2;
-    track.scrollTo({ left: offset, behavior: 'smooth' });
+    const targetLeft = card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2;
+    track.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
+  }
+
+  function startAutoPlay() {
+    if (autoPlay) return;
+    autoPlay = setInterval(() => {
+      currentDot = (currentDot + 1) % count;
+      scrollToCard(currentDot);
+    }, 4000);
+  }
+
+  function stopAutoPlay() {
+    clearInterval(autoPlay);
+    autoPlay = null;
   }
 
   // Create dots
@@ -361,19 +374,22 @@
     if (dots[closest]) dots[closest].classList.add('active');
   }, { passive: true });
 
-  // Auto-advance: only scrolls the inner track, never the page
-  let autoPlay = setInterval(() => {
-    currentDot = (currentDot + 1) % count;
-    scrollToCard(currentDot);
-  }, 4000);
+  // Pause on hover/touch
+  track.addEventListener('pointerenter', stopAutoPlay);
+  track.addEventListener('pointerleave', startAutoPlay);
 
-  track.addEventListener('pointerenter', () => clearInterval(autoPlay));
-  track.addEventListener('pointerleave', () => {
-    autoPlay = setInterval(() => {
-      currentDot = (currentDot + 1) % count;
-      scrollToCard(currentDot);
-    }, 4000);
-  });
+  // Only run autoPlay while the section is actually visible —
+  // prevents the browser from scrolling the page to show off-screen element
+  const section = document.getElementById('testimonials');
+  if (section) {
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => { entry.isIntersecting ? startAutoPlay() : stopAutoPlay(); },
+      { threshold: 0.2 }
+    );
+    visibilityObserver.observe(section);
+  } else {
+    startAutoPlay();
+  }
 })();
 
 /* ── SERVICE CARD 3D TILT ─────────────────────────────────────── */
@@ -461,7 +477,7 @@
             position: fixed; left: ${x}px; top: ${y}px;
             width: 6px; height: 6px; border-radius: 50%;
             pointer-events: none; z-index: 9999;
-            background: ${Math.random() > 0.5 ? 'rgba(255,215,0,0.8)' : 'rgba(0,229,255,0.8)'};
+            background: ${Math.random() > 0.5 ? 'rgba(255,215,0,0.8)' : 'rgba(96,165,250,0.8)'};
             box-shadow: 0 0 10px currentColor;
             transform: translate(-50%,-50%);
           `;
