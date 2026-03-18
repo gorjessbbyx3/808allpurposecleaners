@@ -307,6 +307,7 @@ body::before {
   border: 1px solid rgba(255,255,255,0.3);
   animation: bubbleRise linear infinite;
   backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 @keyframes bubbleRise {
@@ -365,6 +366,7 @@ body::before {
   background: var(--glass);
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 50px;
   padding: 0.5rem 1.2rem;
   font-size: 0.8rem;
@@ -549,6 +551,7 @@ body::before {
   background: var(--glass);
   border: 1.5px solid var(--glass-border);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   color: var(--white);
   text-decoration: none;
   padding: 1rem 1.8rem;
@@ -578,6 +581,7 @@ body::before {
   background: var(--glass);
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 0.5rem 1.1rem;
   border-radius: 50px;
   font-size: 0.85rem;
@@ -751,6 +755,7 @@ section {
   background: var(--glass);
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: var(--radius-lg);
   padding: 2.5rem 2rem 2rem;
   overflow: hidden;
@@ -1207,6 +1212,7 @@ section {
   border-radius: 14px;
   padding: 1rem 1.2rem;
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   transition: background 0.3s, border-color 0.3s;
 }
 
@@ -1289,6 +1295,7 @@ section {
   background: var(--glass);
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: var(--radius-lg);
   padding: 3rem 2rem;
   overflow: hidden;
@@ -1333,6 +1340,8 @@ section {
   line-height: 1.65;
 }
 
+.step-connector { display: none; }
+
 /* ── TESTIMONIALS ─────────────────────────────────────────────── */
 #testimonials { background: var(--dark); }
 
@@ -1356,6 +1365,7 @@ section {
   background: var(--glass);
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: var(--radius-lg);
   padding: 2rem;
   scroll-snap-align: center;
@@ -1589,6 +1599,7 @@ section {
   background: var(--glass);
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 0.5rem 1.2rem;
   border-radius: 50px;
   font-size: 0.85rem;

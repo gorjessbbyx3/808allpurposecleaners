@@ -458,7 +458,7 @@
           document.body.appendChild(s);
           s.animate([
             { transform: 'translate(-50%,-50%) scale(1)', opacity: 1 },
-            { transform: `translate(-50%,-50%) scale(0) translateY(-20px)`, opacity: 0 }
+            { transform: `translate(-50%, calc(-50% - 30px)) scale(0)`, opacity: 0 }
           ], { duration: 800, easing: 'ease-out', fill: 'forwards' })
             .onfinish = () => s.remove();
         }
