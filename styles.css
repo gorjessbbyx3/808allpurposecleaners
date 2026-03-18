@@ -782,6 +782,11 @@ section {
   line-height: 1.7;
 }
 
+.section-cta {
+  text-align: center;
+  margin-top: 3rem;
+}
+
 .gradient-word {
   background: linear-gradient(135deg, var(--yellow), var(--yellow-hot));
   -webkit-background-clip: text;
