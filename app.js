@@ -326,42 +326,52 @@
   const count = cards.length;
   let currentDot = 0;
 
+  // Scroll only within the horizontal track — never touches page scroll
+  function scrollToCard(idx) {
+    const card = cards[idx];
+    const trackRect = track.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const offset = cardRect.left - trackRect.left + track.scrollLeft - (trackRect.width - cardRect.width) / 2;
+    track.scrollTo({ left: offset, behavior: 'smooth' });
+  }
+
   // Create dots
   for (let i = 0; i < count; i++) {
     const dot = document.createElement('div');
     dot.classList.add('dot');
     if (i === 0) dot.classList.add('active');
-    dot.addEventListener('click', () => {
-      cards[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    });
+    dot.addEventListener('click', () => scrollToCard(i));
     dotsContainer.appendChild(dot);
   }
 
   const dots = dotsContainer.querySelectorAll('.dot');
 
-  const ioOpts = { root: track, threshold: 0.6 };
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const idx = [...cards].indexOf(entry.target);
-      dots.forEach(d => d.classList.remove('active'));
-      if (dots[idx]) dots[idx].classList.add('active');
+  // Update active dot based on scroll position within the track
+  track.addEventListener('scroll', () => {
+    const center = track.scrollLeft + track.clientWidth / 2;
+    let closest = 0;
+    let minDist = Infinity;
+    cards.forEach((card, i) => {
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+      const dist = Math.abs(center - cardCenter);
+      if (dist < minDist) { minDist = dist; closest = i; }
     });
-  }, ioOpts);
+    currentDot = closest;
+    dots.forEach(d => d.classList.remove('active'));
+    if (dots[closest]) dots[closest].classList.add('active');
+  }, { passive: true });
 
-  cards.forEach(c => io.observe(c));
-
-  // Auto-scroll testimonials
+  // Auto-advance: only scrolls the inner track, never the page
   let autoPlay = setInterval(() => {
     currentDot = (currentDot + 1) % count;
-    cards[currentDot].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    scrollToCard(currentDot);
   }, 4000);
 
   track.addEventListener('pointerenter', () => clearInterval(autoPlay));
   track.addEventListener('pointerleave', () => {
     autoPlay = setInterval(() => {
       currentDot = (currentDot + 1) % count;
-      cards[currentDot].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      scrollToCard(currentDot);
     }, 4000);
   });
 })();
