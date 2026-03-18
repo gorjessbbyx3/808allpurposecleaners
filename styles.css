@@ -1671,6 +1671,307 @@ section {
   color: var(--cyan);
 }
 
+/* ── PRICING PAGE ─────────────────────────────────────────────── */
+.pricing-section {
+  background: var(--dark);
+  padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 5vw, 3rem);
+}
+
+.pricing-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.pricing-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.pricing-category {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.pricing-cat-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.4rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dark);
+}
+
+.pricing-cat--car        { background: linear-gradient(90deg, #60A5FA, #3B82F6); }
+.pricing-cat--boat       { background: linear-gradient(90deg, #34d399, #059669); }
+.pricing-cat--condo      { background: linear-gradient(90deg, #a78bfa, #7c3aed); }
+.pricing-cat--commercial { background: linear-gradient(90deg, #fb923c, #ea580c); }
+.pricing-cat--addon      { background: linear-gradient(90deg, #FFD700, #FFA500); }
+
+.pricing-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.4rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.2s;
+}
+
+.pricing-item:hover { background: rgba(255,255,255,0.04); }
+
+.pricing-item > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.pricing-item strong {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.pricing-item span {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.45);
+}
+
+.pricing-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  color: var(--yellow);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pricing-callout {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  background: rgba(255,215,0,0.07);
+  border: 1px solid rgba(255,215,0,0.25);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.pricing-callout-icon { font-size: 2rem; flex-shrink: 0; }
+
+.pricing-callout strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--yellow);
+  margin-bottom: 0.4rem;
+}
+
+.pricing-callout p {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.pricing-callout-btn {
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--dark);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.55rem 1.2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.pricing-callout-btn:hover {
+  background: var(--yellow-hot);
+  transform: translateY(-2px);
+}
+
+/* Membership Plans */
+.membership-section {
+  background: var(--dark-mid);
+  padding: clamp(4rem, 8vw, 7rem) clamp(1rem, 5vw, 3rem);
+  position: relative;
+}
+
+.membership-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(0,71,171,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.membership-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.membership-card {
+  position: relative;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.membership-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+}
+
+.membership-card--popular {
+  border-color: rgba(255,215,0,0.45);
+  background: rgba(255,215,0,0.05);
+}
+
+.membership-card--popular:hover {
+  box-shadow: 0 24px 60px rgba(255,215,0,0.2);
+}
+
+.membership-card--value {
+  border-color: rgba(96,165,250,0.35);
+  background: rgba(96,165,250,0.04);
+}
+
+.membership-badge {
+  position: absolute;
+  top: -0.65rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--yellow);
+  color: var(--dark);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.8rem;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+
+.membership-badge--value {
+  background: var(--cyan);
+}
+
+.membership-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.membership-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.05em;
+  color: var(--white);
+  line-height: 1;
+}
+
+.membership-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.8rem;
+  line-height: 1;
+  color: var(--yellow);
+}
+
+.membership-price span {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.5);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 400;
+}
+
+.membership-desc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.membership-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  flex: 1;
+}
+
+.membership-features li {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.7);
+  padding-left: 1.3rem;
+  position: relative;
+}
+
+.membership-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--yellow);
+  font-weight: 700;
+}
+
+.membership-cta {
+  display: block;
+  text-align: center;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--white);
+  text-decoration: none;
+  padding: 0.7rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.25s;
+  margin-top: auto;
+}
+
+.membership-cta:hover {
+  background: rgba(255,255,255,0.14);
+  transform: translateY(-2px);
+}
+
+.membership-cta--gold {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--dark);
+}
+
+.membership-cta--gold:hover {
+  background: var(--yellow-hot);
+  border-color: var(--yellow-hot);
+}
+
+@media (max-width: 960px) {
+  .pricing-wrapper { grid-template-columns: 1fr; }
+  .membership-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .membership-grid { grid-template-columns: 1fr; }
+  .pricing-price { font-size: 1.3rem; }
+}
+
 /* ── FOOTER ───────────────────────────────────────────────────── */
 footer {
   background: rgba(0,0,0,0.8);

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing – 808 All Purpose Cleaners</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700;900&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <canvas id="particleCanvas"></canvas>
+  <div id="cursorSparkle"></div>
+
+  <!-- ═══════════════════════════════════════════ NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="808 All Purpose Cleaners home">
+        <img src="Untitled-3.png" alt="808 All Purpose Cleaners" class="nav-logo-img" width="160" height="68" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="services.html">Services</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="tel:8087231011" class="nav-cta">
+        <span class="pulse-ring"></span>
+        📞 Call Now
+      </a>
+      <button class="burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="services.html">Services</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="tel:8087231011" class="mobile-cta">📞 808-723-1011</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════ PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-aurora">
+      <div class="aurora a1"></div>
+      <div class="aurora a3"></div>
+    </div>
+    <span class="section-tag reveal-up">Transparent Pricing</span>
+    <h1 class="page-header-title reveal-up" data-delay="100">
+      Our <span class="gradient-word">Rates</span>
+    </h1>
+    <p class="page-header-sub reveal-up" data-delay="200">
+      No hidden fees. No surprises. Call for a free estimate on any service.
+    </p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ SERVICE PRICES -->
+  <section class="pricing-section">
+    <div class="pricing-wrapper">
+
+      <!-- Left column -->
+      <div class="pricing-col">
+
+        <!-- Car Detailing -->
+        <div class="pricing-category reveal-up">
+          <div class="pricing-cat-header pricing-cat--car">
+            <span>🚗</span> Car Detailing
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Basic Wash &amp; Dry</strong>
+              <span>Exterior wash, dry, tire shine</span>
+            </div>
+            <span class="pricing-price">$35</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Full Interior Clean</strong>
+              <span>Vacuum, wipe, windows, freshener</span>
+            </div>
+            <span class="pricing-price">$75</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Complete Detail Package</strong>
+              <span>Full exterior/interior, wax, leather</span>
+            </div>
+            <span class="pricing-price">$175</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Engine Bay Clean</strong>
+              <span>Degrease &amp; detail engine</span>
+            </div>
+            <span class="pricing-price">$65</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Ceramic Coating</strong>
+              <span>Paint protection ceramic coat</span>
+            </div>
+            <span class="pricing-price">$350</span>
+          </div>
+        </div>
+
+        <!-- Boat Cleaning -->
+        <div class="pricing-category reveal-up" data-delay="100">
+          <div class="pricing-cat-header pricing-cat--boat">
+            <span>🛥️</span> Boat Cleaning
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Deck Wash &amp; Rinse</strong>
+              <span>Pressure wash deck, hull rinse</span>
+            </div>
+            <span class="pricing-price">$125</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Full Boat Detail</strong>
+              <span>Hull, deck, cabin, windows, wax</span>
+            </div>
+            <span class="pricing-price">$350</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Bottom Paint &amp; Barnacle</strong>
+              <span>Hull scrape, bottom paint</span>
+            </div>
+            <span class="pricing-price">$450</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Cabin Deep Clean</strong>
+              <span>Interior cabin, upholstery, galley</span>
+            </div>
+            <span class="pricing-price">$200</span>
+          </div>
+        </div>
+
+        <!-- Condo / Home -->
+        <div class="pricing-category reveal-up" data-delay="150">
+          <div class="pricing-cat-header pricing-cat--condo">
+            <span>🏢</span> Condo / Home
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Standard Cleaning</strong>
+              <span>Vacuum, mop, dust, bath, kitchen</span>
+            </div>
+            <span class="pricing-price">$150</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Deep Clean</strong>
+              <span>Baseboards, appliances, windows</span>
+            </div>
+            <span class="pricing-price">$250</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Move-In / Move-Out</strong>
+              <span>Full property clean for turnovers</span>
+            </div>
+            <span class="pricing-price">$350</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Vacation Rental Turnover</strong>
+              <span>Quick turnover between guests</span>
+            </div>
+            <span class="pricing-price">$125</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Lanai &amp; Outdoor</strong>
+              <span>Power wash lanai, outdoor furniture</span>
+            </div>
+            <span class="pricing-price">$85</span>
+          </div>
+        </div>
+
+      </div><!-- /pricing-col -->
+
+      <!-- Right column -->
+      <div class="pricing-col">
+
+        <!-- Commercial -->
+        <div class="pricing-category reveal-up" data-delay="100">
+          <div class="pricing-cat-header pricing-cat--commercial">
+            <span>🏬</span> Commercial
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Office Cleaning</strong>
+              <span>Desks, floors, restrooms, kitchen</span>
+            </div>
+            <span class="pricing-price">$200</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Lobby &amp; Common Area</strong>
+              <span>High-traffic area detail</span>
+            </div>
+            <span class="pricing-price">$175</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Post-Construction</strong>
+              <span>Dust, debris, window cleanup</span>
+            </div>
+            <span class="pricing-price">$500</span>
+          </div>
+        </div>
+
+        <!-- Add-Ons -->
+        <div class="pricing-category reveal-up" data-delay="150">
+          <div class="pricing-cat-header pricing-cat--addon">
+            <span>✨</span> Add-Ons
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Window Cleaning</strong>
+              <span>All windows, tracks &amp; sills</span>
+            </div>
+            <span class="pricing-price">$45</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Fridge Deep Clean</strong>
+              <span>Empty, clean, sanitize</span>
+            </div>
+            <span class="pricing-price">$35</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Oven Deep Clean</strong>
+              <span>Full oven &amp; range detail</span>
+            </div>
+            <span class="pricing-price">$40</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Laundry Service</strong>
+              <span>Wash, dry, fold per load</span>
+            </div>
+            <span class="pricing-price">$25</span>
+          </div>
+          <div class="pricing-item">
+            <div>
+              <strong>Carpet Shampooing</strong>
+              <span>Hot water extraction per room</span>
+            </div>
+            <span class="pricing-price">$65</span>
+          </div>
+        </div>
+
+        <!-- Free estimate callout -->
+        <div class="pricing-callout reveal-up" data-delay="200">
+          <div class="pricing-callout-icon">📞</div>
+          <div>
+            <strong>Not sure what you need?</strong>
+            <p>Call for a free, no-pressure estimate. We'll walk you through the best options for your situation.</p>
+            <a href="tel:8087231011" class="pricing-callout-btn">Call 808-723-1011</a>
+          </div>
+        </div>
+
+      </div><!-- /pricing-col -->
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ MEMBERSHIP PLANS -->
+  <section class="membership-section">
+    <div class="section-header">
+      <span class="section-tag reveal-up">Save More Every Month</span>
+      <h2 class="section-title reveal-up" data-delay="100">
+        Membership <span class="gradient-word">Plans</span>
+      </h2>
+      <p class="section-sub reveal-up" data-delay="200">Lock in lower rates and priority scheduling with a monthly plan</p>
+    </div>
+
+    <div class="membership-grid">
+
+      <div class="membership-card reveal-up" data-delay="0">
+        <div class="membership-icon">🏠</div>
+        <h3 class="membership-name">Ohana Basic</h3>
+        <div class="membership-price">$299<span>/mo</span></div>
+        <p class="membership-desc">Weekly home maintenance</p>
+        <ul class="membership-features">
+          <li>1 standard clean/week</li>
+          <li>Basic supplies included</li>
+          <li>Same-day booking</li>
+        </ul>
+        <a href="tel:8087231011" class="membership-cta">Get Started</a>
+      </div>
+
+      <div class="membership-card membership-card--popular reveal-up" data-delay="100">
+        <div class="membership-badge">Most Popular</div>
+        <div class="membership-icon">🏠🚗</div>
+        <h3 class="membership-name">Ohana Plus</h3>
+        <div class="membership-price">$549<span>/mo</span></div>
+        <p class="membership-desc">Home + vehicle combo</p>
+        <ul class="membership-features">
+          <li>1 clean/week + 1 car detail/mo</li>
+          <li>Priority scheduling</li>
+          <li>10% off all add-ons</li>
+        </ul>
+        <a href="tel:8087231011" class="membership-cta membership-cta--gold">Get Started</a>
+      </div>
+
+      <div class="membership-card membership-card--value reveal-up" data-delay="200">
+        <div class="membership-badge membership-badge--value">Best Value</div>
+        <div class="membership-icon">🏠🚗🛥️</div>
+        <h3 class="membership-name">Ohana Premium</h3>
+        <div class="membership-price">$899<span>/mo</span></div>
+        <p class="membership-desc">Home, car &amp; boat</p>
+        <ul class="membership-features">
+          <li>1 deep clean/week</li>
+          <li>2 car details + 1 boat wash/mo</li>
+          <li>Dedicated crew · 15% off</li>
+        </ul>
+        <a href="tel:8087231011" class="membership-cta">Get Started</a>
+      </div>
+
+      <div class="membership-card reveal-up" data-delay="100">
+        <div class="membership-icon">🛥️</div>
+        <h3 class="membership-name">Boat Club</h3>
+        <div class="membership-price">$399<span>/mo</span></div>
+        <p class="membership-desc">Keep your vessel pristine</p>
+        <ul class="membership-features">
+          <li>2 deck washes/mo</li>
+          <li>1 cabin clean/mo</li>
+          <li>Harbor pickup</li>
+        </ul>
+        <a href="tel:8087231011" class="membership-cta">Get Started</a>
+      </div>
+
+      <div class="membership-card reveal-up" data-delay="200">
+        <div class="membership-icon">🚐</div>
+        <h3 class="membership-name">Fleet Plan</h3>
+        <div class="membership-price">$199<span>/mo</span></div>
+        <p class="membership-desc">Per-vehicle fleet pricing</p>
+        <ul class="membership-features">
+          <li>Weekly wash per vehicle</li>
+          <li>Monthly detail</li>
+          <li>Volume discounts</li>
+        </ul>
+        <a href="tel:8087231011" class="membership-cta">Get Started</a>
+      </div>
+
+      <div class="membership-card reveal-up" data-delay="300">
+        <div class="membership-icon">🏡</div>
+        <h3 class="membership-name">VR Pro</h3>
+        <div class="membership-price">$449<span>/mo</span></div>
+        <p class="membership-desc">Airbnb / VRBO hosts</p>
+        <ul class="membership-features">
+          <li>Up to 8 turnovers/mo</li>
+          <li>Same-day capability</li>
+          <li>Photo-ready guarantee</li>
+        </ul>
+        <a href="tel:8087231011" class="membership-cta">Get Started</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ CTA -->
+  <section id="contact">
+    <div class="cta-blob"></div>
+    <div class="cta-content">
+      <span class="section-tag reveal-up">Ready to Book?</span>
+      <h2 class="cta-title reveal-up" data-delay="100">Call for a <span class="gradient-word-gold">FREE Estimate!</span></h2>
+      <p class="cta-sub reveal-up" data-delay="200">No commitment. No pressure. Serving South Oahu by appointment.</p>
+      <a href="tel:8087231011" class="mega-btn reveal-up" data-delay="300">
+        <span class="mega-btn-inner">
+          <span class="mega-phone">📞</span>
+          <span>
+            <span class="mega-number">808-723-1011</span>
+            <span class="mega-sub">Tap to Call · Free Estimate</span>
+          </span>
+        </span>
+        <span class="mega-btn-glow"></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="Untitled-3.png" alt="808 All Purpose Cleaners" class="footer-logo-img" width="220" height="92" />
+        <p>Professional cleaning services for cars, boats, and condos throughout South Oahu, Hawaii.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="services.html">Services</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Us</h4>
+        <a href="tel:8087231011" class="footer-phone">📞 808-723-1011</a>
+        <p>📍 Serving South Oahu</p>
+        <p>🕐 By Appointment Only</p>
+        <div class="footer-stars">★★★★★ 5-Star Rated</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 808 All Purpose Cleaners · All Rights Reserved · South Oahu, Hawaii</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
