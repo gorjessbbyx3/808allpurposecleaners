@@ -114,6 +114,93 @@
     </p>
   </div>
 
+  <!-- ═══════════════════════════════════════════ CONTACT FORM -->
+  <section class="contact-form-section">
+    <div class="contact-form-wrap">
+
+      <div class="contact-info reveal-up">
+        <span class="section-tag">Reach Out</span>
+        <h2>Request a <span class="gradient-word">Free Estimate</span></h2>
+        <p>Fill out the form and we'll get back to you shortly. Or call us directly for the fastest response.</p>
+        <div class="contact-info-items">
+          <a href="tel:8087231011" class="contact-info-item">
+            <span class="contact-info-icon">📞</span>
+            <div>
+              <strong>Call or Text</strong>
+              <span>808-723-1011</span>
+            </div>
+          </a>
+          <a href="mailto:Lainecoldera@aol.com" class="contact-info-item">
+            <span class="contact-info-icon">✉️</span>
+            <div>
+              <strong>Email Us</strong>
+              <span>Lainecoldera@aol.com</span>
+            </div>
+          </a>
+          <div class="contact-info-item">
+            <span class="contact-info-icon">📍</span>
+            <div>
+              <strong>Service Area</strong>
+              <span>South Oahu, Hawaii</span>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <span class="contact-info-icon">🕐</span>
+            <div>
+              <strong>Hours</strong>
+              <span>By Appointment Only</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form
+        class="contact-form reveal-up"
+        data-delay="150"
+        action="https://formspree.io/f/YOUR_FORM_ID"
+        method="POST"
+      >
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cf-name">Your Name *</label>
+            <input type="text" id="cf-name" name="name" placeholder="Jane Doe" required />
+          </div>
+          <div class="form-group">
+            <label for="cf-phone">Phone Number *</label>
+            <input type="tel" id="cf-phone" name="phone" placeholder="808-555-0100" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cf-email">Email Address</label>
+          <input type="email" id="cf-email" name="email" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label for="cf-service">Service Needed *</label>
+          <select id="cf-service" name="service" required>
+            <option value="" disabled selected>Select a service…</option>
+            <option value="Car Detailing">🚗 Car Detailing</option>
+            <option value="Boat Cleaning">🛥️ Boat Cleaning</option>
+            <option value="Condo / Home Cleaning">🏢 Condo / Home Cleaning</option>
+            <option value="Vacation Rental Turnover">🏡 Vacation Rental Turnover</option>
+            <option value="Move-In / Move-Out">📦 Move-In / Move-Out</option>
+            <option value="Commercial Cleaning">🏬 Commercial Cleaning</option>
+            <option value="Other">✨ Other / Not Sure</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="cf-message">Additional Details</label>
+          <textarea id="cf-message" name="message" rows="4" placeholder="Tell us about your vehicle, property size, or any special requests…"></textarea>
+        </div>
+        <button type="submit" class="form-submit">
+          <span>Send Message</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+        </button>
+        <p class="form-note">* Required fields. We typically respond within a few hours.</p>
+      </form>
+
+    </div>
+  </section>
+
   <!-- ═══════════════════════════════════════════ TESTIMONIALS -->
   <section id="testimonials">
     <div class="section-header">
