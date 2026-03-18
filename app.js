@@ -1,0 +1,614 @@
+/* ═══════════════════════════════════════════════════════════════
+   808 ALL PURPOSE CLEANERS — JavaScript
+   Particle System, Scroll Animations, Interactive Effects
+═══════════════════════════════════════════════════════════════ */
+
+/* ── CURSOR SPARKLE ───────────────────────────────────────────── */
+(function initCursor() {
+  const cursor = document.getElementById('cursorSparkle');
+  let mx = -100, my = -100;
+  let cx = -100, cy = -100;
+  const trail = [];
+  const TRAIL_LENGTH = 8;
+
+  // Create trail dots
+  for (let i = 0; i < TRAIL_LENGTH; i++) {
+    const dot = document.createElement('div');
+    dot.style.cssText = `
+      position: fixed; border-radius: 50%; pointer-events: none; z-index: 99998;
+      transform: translate(-50%,-50%); mix-blend-mode: screen;
+      background: radial-gradient(circle, rgba(0,229,255,0.6), transparent);
+    `;
+    document.body.appendChild(dot);
+    trail.push({ el: dot, x: -100, y: -100 });
+  }
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+    spawnClickSparkles(e.clientX, e.clientY, 1);
+  });
+
+  document.addEventListener('mousedown', (e) => {
+    spawnClickSparkles(e.clientX, e.clientY, 6);
+    cursor.style.width = '40px';
+    cursor.style.height = '40px';
+  });
+
+  document.addEventListener('mouseup', () => {
+    cursor.style.width = '24px';
+    cursor.style.height = '24px';
+  });
+
+  function spawnClickSparkles(x, y, count) {
+    for (let i = 0; i < count; i++) {
+      const s = document.createElement('div');
+      const size = 6 + Math.random() * 10;
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 20 + Math.random() * 60;
+      s.style.cssText = `
+        position: fixed; width: ${size}px; height: ${size}px;
+        border-radius: 50%; pointer-events: none; z-index: 99997;
+        left: ${x}px; top: ${y}px; transform: translate(-50%,-50%);
+        background: ${Math.random() > 0.5 ? 'rgba(255,215,0,0.9)' : 'rgba(0,229,255,0.9)'};
+        box-shadow: 0 0 ${size}px ${Math.random() > 0.5 ? 'rgba(255,215,0,0.6)' : 'rgba(0,229,255,0.6)'};
+      `;
+      document.body.appendChild(s);
+      const tx = Math.cos(angle) * dist;
+      const ty = Math.sin(angle) * dist;
+      s.animate([
+        { transform: 'translate(-50%,-50%) scale(1)', opacity: 1 },
+        { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`, opacity: 0 }
+      ], { duration: 600 + Math.random() * 400, easing: 'ease-out', fill: 'forwards' })
+        .onfinish = () => s.remove();
+    }
+  }
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function animateCursor() {
+    cx = lerp(cx, mx, 0.15);
+    cy = lerp(cy, my, 0.15);
+    cursor.style.left = cx + 'px';
+    cursor.style.top = cy + 'px';
+
+    // Update trail
+    for (let i = TRAIL_LENGTH - 1; i > 0; i--) {
+      trail[i].x = lerp(trail[i].x, trail[i-1].x, 0.35);
+      trail[i].y = lerp(trail[i].y, trail[i-1].y, 0.35);
+    }
+    trail[0].x = cx;
+    trail[0].y = cy;
+
+    trail.forEach((t, i) => {
+      const pct = 1 - i / TRAIL_LENGTH;
+      const size = pct * 12;
+      t.el.style.cssText = `
+        position: fixed; width: ${size}px; height: ${size}px;
+        border-radius: 50%; pointer-events: none; z-index: 99998;
+        left: ${t.x}px; top: ${t.y}px;
+        transform: translate(-50%,-50%);
+        mix-blend-mode: screen;
+        opacity: ${pct * 0.5};
+        background: radial-gradient(circle, rgba(0,229,255,0.8), transparent);
+      `;
+    });
+
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+})();
+
+/* ── PARTICLE CANVAS (Bubbles + Sparkles) ─────────────────────── */
+(function initParticles() {
+  const canvas = document.getElementById('particleCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(true); }
+    reset(initial = false) {
+      this.type = Math.random() > 0.5 ? 'bubble' : 'sparkle';
+      this.x = Math.random() * W;
+      this.y = initial ? Math.random() * H : H + 20;
+      this.r = this.type === 'bubble'
+        ? 3 + Math.random() * 18
+        : 1 + Math.random() * 3;
+      this.vx = (Math.random() - 0.5) * 0.8;
+      this.vy = -(0.3 + Math.random() * 1.2);
+      this.opacity = 0;
+      this.maxOpacity = 0.3 + Math.random() * 0.5;
+      this.life = 0;
+      this.maxLife = 200 + Math.random() * 300;
+      this.angle = Math.random() * Math.PI * 2;
+      this.angleSpeed = (Math.random() - 0.5) * 0.05;
+      this.hue = Math.random() > 0.6 ? 200 : (Math.random() > 0.5 ? 50 : 180);
+    }
+    update() {
+      this.life++;
+      this.x += this.vx;
+      this.y += this.vy;
+      this.angle += this.angleSpeed;
+      const progress = this.life / this.maxLife;
+      if (progress < 0.1) this.opacity = (progress / 0.1) * this.maxOpacity;
+      else if (progress > 0.8) this.opacity = ((1 - progress) / 0.2) * this.maxOpacity;
+      else this.opacity = this.maxOpacity;
+      if (this.life >= this.maxLife || this.y < -50) this.reset();
+    }
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = this.opacity;
+      if (this.type === 'bubble') {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        const grad = ctx.createRadialGradient(
+          this.x - this.r * 0.3, this.y - this.r * 0.3, this.r * 0.1,
+          this.x, this.y, this.r
+        );
+        grad.addColorStop(0, `hsla(${this.hue}, 80%, 95%, 0.8)`);
+        grad.addColorStop(0.5, `hsla(${this.hue}, 70%, 70%, 0.2)`);
+        grad.addColorStop(1, `hsla(${this.hue}, 60%, 50%, 0.05)`);
+        ctx.fillStyle = grad;
+        ctx.fill();
+        ctx.strokeStyle = `hsla(${this.hue}, 80%, 80%, 0.4)`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+        // Bubble shine
+        ctx.beginPath();
+        ctx.arc(this.x - this.r * 0.35, this.y - this.r * 0.35, this.r * 0.25, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,0.6)';
+        ctx.fill();
+      } else {
+        // Sparkle: 4-point star
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        const s = this.r * 3;
+        ctx.beginPath();
+        for (let i = 0; i < 4; i++) {
+          const a = (i * Math.PI) / 2;
+          const innerA = a + Math.PI / 4;
+          if (i === 0) ctx.moveTo(Math.cos(a) * s, Math.sin(a) * s);
+          else ctx.lineTo(Math.cos(a) * s, Math.sin(a) * s);
+          ctx.lineTo(Math.cos(innerA) * s * 0.3, Math.sin(innerA) * s * 0.3);
+        }
+        ctx.closePath();
+        ctx.fillStyle = this.hue === 50
+          ? `rgba(255,215,0,0.9)`
+          : `rgba(0,229,255,0.9)`;
+        ctx.fill();
+        ctx.shadowColor = this.hue === 50 ? '#FFD700' : '#00E5FF';
+        ctx.shadowBlur = 8;
+      }
+      ctx.restore();
+    }
+  }
+
+  // Create particles
+  for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+/* ── DYNAMIC BUBBLES IN HERO ──────────────────────────────────── */
+(function initHeroBubbles() {
+  const container = document.getElementById('bubblesContainer');
+  if (!container) return;
+
+  function createBubble() {
+    const b = document.createElement('div');
+    b.classList.add('bubble');
+    const size = 10 + Math.random() * 60;
+    const left = Math.random() * 100;
+    const dur = 6 + Math.random() * 10;
+    const delay = Math.random() * 5;
+    const drift = (Math.random() - 0.5) * 100;
+
+    b.style.cssText = `
+      width: ${size}px; height: ${size}px;
+      left: ${left}%;
+      bottom: 0;
+      --drift: ${drift}px;
+      animation-duration: ${dur}s;
+      animation-delay: -${delay}s;
+      opacity: 0;
+    `;
+    container.appendChild(b);
+
+    setTimeout(() => {
+      if (b.parentNode) b.remove();
+      createBubble();
+    }, (dur + delay) * 1000);
+  }
+
+  for (let i = 0; i < 20; i++) createBubble();
+})();
+
+/* ── NAVBAR SCROLL BEHAVIOR ───────────────────────────────────── */
+(function initNavbar() {
+  const navbar = document.getElementById('navbar');
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
+  }, { passive: true });
+
+  burger && burger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    const spans = burger.querySelectorAll('span');
+    if (mobileMenu.classList.contains('open')) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+    } else {
+      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    }
+  });
+
+  // Close on link click
+  mobileMenu && mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      burger.querySelectorAll('span').forEach(s => {
+        s.style.transform = ''; s.style.opacity = '';
+      });
+    });
+  });
+})();
+
+/* ── SCROLL REVEAL ────────────────────────────────────────────── */
+(function initScrollReveal() {
+  const items = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = parseInt(entry.target.dataset.delay || 0);
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, delay);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  items.forEach(item => observer.observe(item));
+})();
+
+/* ── COUNTER ANIMATION ────────────────────────────────────────── */
+(function initCounters() {
+  const counters = document.querySelectorAll('.stat-num[data-target]');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.target);
+      const duration = 2000;
+      const start = performance.now();
+
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+      observer.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(c => observer.observe(c));
+})();
+
+/* ── TESTIMONIALS CAROUSEL DOTS ───────────────────────────────── */
+(function initTestimonials() {
+  const track = document.getElementById('testimonialsTrack');
+  const dotsContainer = document.getElementById('testimonialsDots');
+  if (!track || !dotsContainer) return;
+
+  const cards = track.querySelectorAll('.tcard');
+  const count = cards.length;
+  let currentDot = 0;
+
+  // Create dots
+  for (let i = 0; i < count; i++) {
+    const dot = document.createElement('div');
+    dot.classList.add('dot');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => {
+      cards[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+    dotsContainer.appendChild(dot);
+  }
+
+  const dots = dotsContainer.querySelectorAll('.dot');
+
+  const ioOpts = { root: track, threshold: 0.6 };
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const idx = [...cards].indexOf(entry.target);
+      dots.forEach(d => d.classList.remove('active'));
+      if (dots[idx]) dots[idx].classList.add('active');
+    });
+  }, ioOpts);
+
+  cards.forEach(c => io.observe(c));
+
+  // Auto-scroll testimonials
+  let autoPlay = setInterval(() => {
+    currentDot = (currentDot + 1) % count;
+    cards[currentDot].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }, 4000);
+
+  track.addEventListener('pointerenter', () => clearInterval(autoPlay));
+  track.addEventListener('pointerleave', () => {
+    autoPlay = setInterval(() => {
+      currentDot = (currentDot + 1) % count;
+      cards[currentDot].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }, 4000);
+  });
+})();
+
+/* ── SERVICE CARD 3D TILT ─────────────────────────────────────── */
+(function initCardTilt() {
+  const cards = document.querySelectorAll('.service-card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width / 2);
+      const dy = (e.clientY - cy) / (rect.height / 2);
+      const tiltX = dy * -8;
+      const tiltY = dx * 8;
+      card.style.transform = `translateY(-10px) scale(1.01) perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.transition = 'transform 0.5s ease';
+      setTimeout(() => card.style.transition = '', 500);
+    });
+
+    card.addEventListener('mouseenter', () => {
+      card.style.transition = 'none';
+    });
+  });
+})();
+
+/* ── PARALLAX SPONGES ─────────────────────────────────────────── */
+(function initParallax() {
+  const sponges = document.querySelectorAll('.sponge');
+  const speeds = [0.3, 0.5, 0.2, 0.4, 0.6, 0.25];
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    sponges.forEach((s, i) => {
+      const speed = speeds[i % speeds.length];
+      s.style.transform = `translateY(${scrollY * speed * -0.3}px)`;
+    });
+  }, { passive: true });
+})();
+
+/* ── AURORA MOUSE PARALLAX ────────────────────────────────────── */
+(function initAuroraParallax() {
+  const auroras = document.querySelectorAll('.aurora');
+  document.addEventListener('mousemove', (e) => {
+    const cx = (e.clientX / window.innerWidth - 0.5) * 2;
+    const cy = (e.clientY / window.innerHeight - 0.5) * 2;
+    auroras.forEach((a, i) => {
+      const depth = (i + 1) * 15;
+      a.style.transform = `translate(${cx * depth}px, ${cy * depth}px) scale(1)`;
+    });
+  });
+})();
+
+/* ── SMOOTH ANCHOR SCROLL ─────────────────────────────────────── */
+(function initSmoothAnchors() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+})();
+
+/* ── SPARKLE TRAIL ON SCROLL ──────────────────────────────────── */
+(function initScrollSparkle() {
+  let lastScrollY = 0;
+  let ticking = false;
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const delta = Math.abs(window.scrollY - lastScrollY);
+        if (delta > 5) {
+          // Create sparkle at random position
+          const s = document.createElement('div');
+          const x = 10 + Math.random() * (window.innerWidth - 20);
+          const y = Math.random() * window.innerHeight;
+          s.style.cssText = `
+            position: fixed; left: ${x}px; top: ${y}px;
+            width: 6px; height: 6px; border-radius: 50%;
+            pointer-events: none; z-index: 9999;
+            background: ${Math.random() > 0.5 ? 'rgba(255,215,0,0.8)' : 'rgba(0,229,255,0.8)'};
+            box-shadow: 0 0 10px currentColor;
+            transform: translate(-50%,-50%);
+          `;
+          document.body.appendChild(s);
+          s.animate([
+            { transform: 'translate(-50%,-50%) scale(1)', opacity: 1 },
+            { transform: `translate(-50%,-50%) scale(0) translateY(-20px)`, opacity: 0 }
+          ], { duration: 800, easing: 'ease-out', fill: 'forwards' })
+            .onfinish = () => s.remove();
+        }
+        lastScrollY = window.scrollY;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+
+/* ── SPONGE MASCOT INTERACTIVE ────────────────────────────────── */
+(function initSponge() {
+  const spongeBody = document.querySelector('.sponge-body');
+  if (!spongeBody) return;
+
+  spongeBody.addEventListener('click', () => {
+    spongeBody.style.animation = 'none';
+    spongeBody.style.transform = 'scale(1.2)';
+    spongeBody.style.transition = 'transform 0.1s';
+
+    // Burst bubbles
+    for (let i = 0; i < 12; i++) {
+      const b = document.createElement('div');
+      const size = 6 + Math.random() * 16;
+      const angle = (i / 12) * Math.PI * 2;
+      const dist = 40 + Math.random() * 60;
+      b.style.cssText = `
+        position: absolute; width: ${size}px; height: ${size}px;
+        border-radius: 50%; pointer-events: none;
+        border: 1.5px solid rgba(0,229,255,0.7);
+        background: rgba(0,229,255,0.1);
+        left: 50%; top: 50%;
+        transform: translate(-50%,-50%);
+        z-index: 100;
+      `;
+      spongeBody.appendChild(b);
+      const tx = Math.cos(angle) * dist;
+      const ty = Math.sin(angle) * dist;
+      b.animate([
+        { transform: `translate(-50%,-50%) scale(1)`, opacity: 0.8 },
+        { transform: `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(1.5)`, opacity: 0 }
+      ], { duration: 600, easing: 'ease-out', fill: 'forwards' })
+        .onfinish = () => b.remove();
+    }
+
+    setTimeout(() => {
+      spongeBody.style.transform = '';
+      spongeBody.style.animation = '';
+    }, 200);
+  });
+})();
+
+/* ── PAGE LOAD ANIMATION ──────────────────────────────────────── */
+(function initPageLoad() {
+  const loader = document.createElement('div');
+  loader.style.cssText = `
+    position: fixed; inset: 0; z-index: 99999;
+    background: #080C1A;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 1rem;
+    font-family: 'Bebas Neue', sans-serif;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  `;
+
+  const text = document.createElement('div');
+  text.style.cssText = `
+    font-size: 4rem; color: #FFD700;
+    text-shadow: 0 0 30px rgba(255,215,0,0.6);
+    letter-spacing: 0.1em;
+    animation: loaderPulse 0.8s ease-in-out infinite alternate;
+  `;
+  text.textContent = '808';
+
+  const sub = document.createElement('div');
+  sub.style.cssText = `font-size: 1rem; color: rgba(0,229,255,0.8); letter-spacing: 0.3em;`;
+  sub.textContent = 'ALL PURPOSE CLEANERS';
+
+  const bar = document.createElement('div');
+  bar.style.cssText = `
+    width: 200px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;
+    margin-top: 1rem;
+  `;
+  const barFill = document.createElement('div');
+  barFill.style.cssText = `
+    height: 100%; width: 0%; background: linear-gradient(90deg, #FFD700, #00E5FF);
+    border-radius: 2px; transition: width 0.8s ease;
+  `;
+  bar.appendChild(barFill);
+
+  loader.appendChild(text);
+  loader.appendChild(sub);
+  loader.appendChild(bar);
+  document.body.appendChild(loader);
+
+  // Add keyframe for loader
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes loaderPulse {
+      0%   { text-shadow: 0 0 20px rgba(255,215,0,0.6); }
+      100% { text-shadow: 0 0 40px rgba(255,215,0,1), 0 0 80px rgba(255,165,0,0.5); }
+    }
+  `;
+  document.head.appendChild(style);
+
+  requestAnimationFrame(() => {
+    barFill.style.width = '100%';
+  });
+
+  setTimeout(() => {
+    loader.style.opacity = '0';
+    loader.style.transform = 'scale(1.05)';
+    setTimeout(() => loader.remove(), 600);
+  }, 1200);
+})();
+
+/* ── DYNAMIC SPARKLE FIELD ON HERO HOVER ─────────────────────── */
+(function initHeroSparkles() {
+  const hero = document.getElementById('hero');
+  if (!hero) return;
+
+  hero.addEventListener('mousemove', throttle((e) => {
+    if (Math.random() > 0.4) return;
+    const sparkle = document.createElement('div');
+    const size = 4 + Math.random() * 8;
+    sparkle.style.cssText = `
+      position: absolute; width: ${size}px; height: ${size}px;
+      border-radius: 50%; pointer-events: none; z-index: 20;
+      left: ${e.clientX}px; top: ${e.clientY + window.scrollY}px;
+      transform: translate(-50%,-50%);
+      background: ${Math.random() > 0.5 ? 'rgba(255,215,0,0.9)' : 'rgba(0,229,255,0.9)'};
+      box-shadow: 0 0 8px currentColor;
+    `;
+    hero.appendChild(sparkle);
+
+    sparkle.animate([
+      { transform: 'translate(-50%,-50%) scale(1)', opacity: 1 },
+      { transform: `translate(-50%,calc(-50% - ${20 + Math.random()*30}px)) scale(0)`, opacity: 0 }
+    ], { duration: 500 + Math.random() * 300, easing: 'ease-out', fill: 'forwards' })
+      .onfinish = () => sparkle.remove();
+  }, 30));
+
+  function throttle(fn, ms) {
+    let last = 0;
+    return (...args) => {
+      const now = Date.now();
+      if (now - last >= ms) { last = now; fn(...args); }
+    };
+  }
+})();
+
+console.log('%c808 All Purpose Cleaners 🧽✨', 'color: #FFD700; font-size: 20px; font-weight: bold; font-family: serif;');
+console.log('%cWe Clean It All!! | 808-723-1011', 'color: #00E5FF; font-size: 12px;');
