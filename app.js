@@ -585,7 +585,7 @@
   loader.id = 'siteLoader';
   loader.style.cssText = `
     position:fixed; inset:0; z-index:99999;
-    background: radial-gradient(ellipse 90% 70% at 50% 60%, #0D2050 0%, #080C1A 65%);
+    background: radial-gradient(ellipse 90% 70% at 50% 60%, #152860 0%, #0E1E3C 65%);
     display:flex; align-items:center; justify-content:center; flex-direction:column;
     overflow:hidden; font-family:'Space Grotesk',sans-serif;
   `;
@@ -735,7 +735,7 @@
     [panelL, panelR].forEach(p => {
       p.style.cssText = `
         position:absolute; top:0; bottom:0; width:51%;
-        background: radial-gradient(ellipse 90% 70% at 50% 60%, #0D2050 0%, #080C1A 65%);
+        background: radial-gradient(ellipse 90% 70% at 50% 60%, #152860 0%, #0E1E3C 65%);
       `;
     });
     panelL.style.left  = '0';
